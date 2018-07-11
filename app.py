@@ -1,3 +1,4 @@
+import os
 from datetime import timedelta
 
 from flask import Flask, jsonify
@@ -12,7 +13,7 @@ from resources.store import Store, StoreList
 app = Flask(__name__)
 app.secret_key = 'hunter2'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///data.db')
 api = Api(app)
 
 app.config['JWT_AUTH_URL_RULE'] = '/login'
